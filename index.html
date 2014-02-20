@@ -1,0 +1,82 @@
+<html>
+<head>
+    <link href="select2.css" rel="stylesheet"/>
+    <link href="support/bootstrap.css" rel="stylesheet"/>
+    <script src="support/jquery-1.11.0.min.js"></script>
+    <script src="select2.js"></script>
+    
+    <style>
+    	.form {
+  		margin-top:20px;
+  	}
+    	.form input {
+      height: 30px;
+  		padding:10px;
+  		margin:10px;
+  		width:500px;
+  	}
+    #target {
+        height:40px;
+    }
+    </style>
+</head>
+<body>
+<center>
+<form class='form'>
+  <br/>
+  <input type="text" id='target' placeholder='Enter some strings separated with space....' /><br/>
+ 
+  <select multiple="" name="tmp_select" id="tmp_select" style="width: 300px; display: none;">
+  </select>
+
+</form>
+</center>
+
+
+<script>
+$( "#target" ).keyup(function() {
+  //Retrieve the values selected already selected.
+      selected_item = $("#tmp_select").select2("val");
+      //get all the values in the first input field.
+      var input1= document.getElementById("target").value; 
+      
+      //Replace extra spaces.
+      input1 = input1.replace(/\s+/g,' ').trim();
+
+      //Seperate values by space as delimiter.
+      var values = input1.split(" ");
+
+      //Need to empty the Select2 input box each time to update the values.
+      $('#tmp_select').empty();
+      var x = document.getElementById("tmp_select");
+      
+      //Insert options which are obtained from first input box in the hidden select input field.
+      for (var i = 0; i < values.length; i++) {
+          var option = document.createElement("option");
+          option.text = values[i];
+          option.value = i+1;
+          x.add(option);
+
+      }
+
+      //update the values in 2nd input box if there is change in the first box.
+
+      selected_item = selected_item.toString();
+      selected_item =selected_item.split(",");
+
+      $("#tmp_select").select2('val', selected_item);
+
+});
+
+$(document).ready(function() {
+        $("#tmp_select").select2(); //calling the select2() on window load.
+        
+
+        $("#s2id_tmp_select").show();
+        $("#s2id_tmp_select").width("500px");
+
+});
+</script>
+
+</body>
+</html>
