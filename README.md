@@ -1,4 +1,4 @@
-select2_example
+Select2 Example
 ===============
 
 Its a simple example of Select2 JS library.<br/>
