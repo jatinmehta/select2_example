@@ -6,15 +6,15 @@
     <script src="select2.js"></script>
     
     <style>
-      .form {
-      margin-top:20px;
-    }
-      .form input {
+    	.form {
+  		margin-top:20px;
+  	}
+    	.form input {
       height: 30px;
-      padding:10px;
-      margin:10px;
-      width:500px;
-    }
+  		padding:10px;
+  		margin:10px;
+  		width:500px;
+  	}
     #target {
         height:40px;
     }
@@ -25,17 +25,18 @@
 <form class='form'>
   <br/>
   <input type="text" id='target' placeholder='Enter some strings separated with space....' /><br/>
-  <input type="text" id='fill' placeholder='Enter some characters..' style="width:500px;"/><br/> 
+ 
+  <select multiple="" name="tmp_select" id="tmp_select" style="width: 300px; display: none;">
+  </select>
+
 </form>
 </center>
 
 
 <script>
-var choices = new Array;
-
 $( "#target" ).keyup(function() {
   //Retrieve the values already selected in second input field.
-      selected_item = $("#fill").select2("val");
+      selected_item = $("#tmp_select").select2("val");
       //get all the values in the first input field.
       var input1= document.getElementById("target").value; 
       
@@ -46,11 +47,15 @@ $( "#target" ).keyup(function() {
       var values = input1.split(" ");
 
       //Need to empty the Select2 input box each time to update the values.
-      $('#fill').empty();
+      $('#tmp_select').empty();
+      var x = document.getElementById("tmp_select");
       
       //Insert options which are obtained from first input box in the hidden select input field.
       for (var i = 0; i < values.length; i++) {
-          choices[i] = values[i];
+          var option = document.createElement("option");
+          option.text = values[i];
+          option.value = i+1;
+          x.add(option);
       }
 
       //update the values in 2nd input box if there is change in the first box.
@@ -58,16 +63,17 @@ $( "#target" ).keyup(function() {
       selected_item = selected_item.toString();
       selected_item =selected_item.split(",");
 
-      $("#fill").select2('val', selected_item);
+      $("#tmp_select").select2('val', selected_item);
 
 });
 
 $(document).ready(function() {
-        $("#fill").select2({
-            tags: choices, // choices entered by the user in the first input box.
-            tokenSeparators: [",", " "] // delimiter used for seperating new custom user tags.
-        }); //calling the select2() on window load.
+        $("#tmp_select").select2(); //calling the select2() on window load.
      
+
+      $("#s2id_tmp_select").show();
+        $("#s2id_tmp_select").width("500px");
+
 });
 </script>
 
