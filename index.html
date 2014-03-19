@@ -57,7 +57,7 @@ $( "#target" ).blur(function() {
 
       //Need to empty the Select2 input box each time to update the values.
       $('#fill').empty();
-      
+      choices.length = 0;
       //Insert options which are obtained from first input box in the hidden select input field.
       for (var i = 0; i < values.length; i++) {
           choices[i] = values[i];
